@@ -16,22 +16,52 @@ class Failure(Exception):
 # data type functions
 
 def closest_to(l,v):
-    """Return the element of the list l closest in value to v.  In the case of
-       a tie, the first such element is returned.  If l is empty, None is returned."""
-    raise Failure("to be written")
+  l = sorted(l)
+  closestNum = None
+  closestSoFarLeft = None
+  closestToRight = None
+  for i in l:
+    # a number equal to v, simply return it 
+    if i == v:
+      return v     
+    # keep track of closest number that is less than target
+    elif i < v:
+      closestSoFarLeft = i
+    # just get first num that is greater than target
+    else:
+      closestToRight = i
+      break
+  # Check which value to return
+  if closestToRight == None:
+    return closestSoFarLeft
+  # check which number is closest
+  else: 
+    if v - closestSoFarLeft < closestToRight - v:
+      closestNum = closestSoFarLeft
+    elif v - closestSoFarLeft > closestToRight - v:
+      closestNum = closestToRight
+    else:
+      closestNum = closestSoFarLeft
+  return closestNum
+
+    
 
 def make_dict(keys,values):
-    """Return a dictionary pairing corresponding keys to values."""
-    raise Failure("to be written")
+  dictionary = {}
+  for key, value in zip(keys,values):
+    dictionary[key] = value 
+  return dictionary 
+   
    
 # file IO functions
 def word_count(fn):
-    """Open the file fn and return a dictionary mapping words to the number
-       of times they occur in the file.  A word is defined as a sequence of
-       alphanumeric characters and _.  All spaces and punctuation are ignored.
-       Words are returned in lower case"""
-    raise Failure("to be written")
-
+  wordDict = {}
+  f = open(fn,"read")
+  lines = list(f.readlines)
+  for l in lines:
+    wordDict[l.lower()]+=1
+        
+  return wordDict
 
 
 
